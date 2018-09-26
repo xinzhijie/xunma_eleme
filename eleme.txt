@@ -1,0 +1,19 @@
+url       https://h5.ele.me/restapi/eus/login/mobile_send_code
+param   {"mobile":"13265876423","captcha_value":"","captcha_hash":""}
+post
+response {"validate_token":"b9fa075aa77044f2f93757c7a7ce0b2d44edcc0c923f7b82b7ec0151999914b9"}
+
+
+
+
+url https://h5.ele.me/restapi/eus/login/login_by_mobile
+param {"mobile":"13265876423","validate_code":"123456","validate_token":"b9fa075aa77044f2f93757c7a7ce0b2d44edcc0c923f7b82b7ec0151999914b9"}
+post
+response {"message":"验证码错误","name":"WRONG_VALIDATE_CODE"}
+
+{"mobile":"13265876423","captcha_value":"ckcb","captcha_hash":"6103cda139a0ef40b10959836d28a760-5bab126c"}
+
+{"mobile":"13265876423","validate_code":"121212","validate_token":"ace224fe200538410a28e4709b439ee0aaa336fb951cacaa3a8b9ebdfc1b33be"}\
+
+
+uestsCookieJar'>[<Cookie SID=2fqUR6MhqkZw8f3UPeXstimgEkKd2y0Bdrvg for .ele.me>,/
