@@ -1,12 +1,13 @@
 # -*- coding: UTF-8 -*-
 from Tkinter import *
 from PIL import Image, ImageTk
+import time
 root = Tk()
 var1 = StringVar()
 
 
 def print_button():
-    root.quit()
+    root.destroy()
 
 
 def get_code():
@@ -22,5 +23,6 @@ def get_code():
     btn.grid(row=1, column=2)
     mainloop()
     return var1.get()
+
 
 
