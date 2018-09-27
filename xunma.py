@@ -41,18 +41,17 @@ def get_verification():
                     break
                 time.sleep(2)
             # 释放手机号
-            release = requests.get(
-                "http://xapi.xunma.net/releasePhone?token=%s&phoneList=%s-%s;" % (token, phone, item_id)).text
+            requests.get("http://xapi.xunma.net/releasePhone?token=%s&phoneList=%s-%s;" % (token, phone, item_id))
             result["code"] = code
             result["phone"] = phone
             if code != "Null":
                 return result
 
 
-i = 0
-while i < 3:
-    i = i + 1
-    result = get_verification()
-    print result["phone"]
-    print result["code"]
-    print get_message(send(result["phone"], result["validate_token"], result["code"]))
+j = 0
+while j < 3:
+    j = j + 1
+    result_ele = get_verification()
+    print result_ele["phone"]
+    print result_ele["code"]
+    print get_message(send(result_ele["phone"], result_ele["validate_token"], result_ele["code"]))
