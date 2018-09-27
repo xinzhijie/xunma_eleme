@@ -48,6 +48,7 @@ def get_verification():
                 return result
 
 
+# 循环三次
 j = 0
 while j < 3:
     j = j + 1
