@@ -2,7 +2,7 @@
 import requests
 import re
 import time
-from eleme import get_ele, send, get_message
+from eleme import get_ele, send, get_message_fruit
 # 默认token
 token = "Z8OEvGM7XuVrWuZPOxHez&LkMd7YLad64"
 item_id = 3361
@@ -21,7 +21,7 @@ def get_verification():
     # 判断token是否过期
     phones = get_phones()
     while "False" in ''.join(phones):
-        token = (re.findall(r"(.+?)&", requests.get("http://xapi.xunma.net/Login?uName=limeichao&pWord=limeichao").text))[0]
+        token = (re.findall(r"(.+?)&", requests.get("http://xapi.xunma.net/Login?uName=limeichao&pWord=limeichao1").text))[0]
         phones = get_phones()
     # 获取饿了么号码的验证码
     for phone in phones:
@@ -50,9 +50,10 @@ def get_verification():
 
 # 循环三次
 j = 0
-while j < 3:
+while j < 1:
     j = j + 1
     result_ele = get_verification()
     print result_ele["phone"]
     print result_ele["code"]
-    print get_message(send(result_ele["phone"], result_ele["validate_token"], result_ele["code"]))
+    print get_message_fruit(send(result_ele["phone"], result_ele["validate_token"], result_ele["code"]))
+    requests.get("http://xapi.xunma.net/Exit?token=%s" % token)

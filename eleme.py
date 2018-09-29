@@ -29,7 +29,7 @@ def get_captcha_hash(phone):
 
 # 发送手机短信验证码
 def get_ele(phone):
-    param = {"mobile": phone, "captcha_value": "", "captcha_hash": ""}
+    param = {"mobile": phone, "captcha_value": "", "capt    cha_hash": ""}
     response = requests.post("https://h5.ele.me/restapi/eus/login/mobile_send_code", data=param).text.encode("utf-8")
     result = json.loads(response)
     if "账户存在风险" in response:
@@ -50,11 +50,13 @@ def send(phone, validate_token, phone_code):
     temp = str(response.cookies.get("SID"))
     result = json.loads(response.text.encode("utf8"))
     result["SID"] = temp
+    result["phone"] = phone
     # 返回SID 返回user_id
     return result
 
 
 # 登陆成功拿这SID 抽奖
+# 领取会员
 def get_message(result):
     cookie_jar = RequestsCookieJar()
     cookie_jar.set("SID", result["SID"])
@@ -62,3 +64,14 @@ def get_message(result):
     response = requests.post("https://h5.ele.me/restapi/member/v1/users/%s/supervip/growth/prize" % result["user_id"], cookies=cookie_jar, data=param)
     return response.text.encode("utf8")
 
+
+# 登陆成功拿这SID 抽奖
+# 领取果蔬红包
+def get_message_fruit(result):
+    cookie_jar = RequestsCookieJar()
+    cookie_jar.set("SID", result["SID"])
+    print result["SID"]
+    print result["user_id"]
+    param = {"refer_code": "6bd2a4f95466c38293dfbb2034715e1b", "phone": result["phone"]}
+    response = requests.post("https://h5.ele.me/restapi/marketing/promotion/refer/%s" % result["user_id"], cookies=cookie_jar, data=param)
+    return response.text.encode("utf8")
