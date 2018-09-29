@@ -60,7 +60,7 @@ def send(phone, validate_token, phone_code):
 def get_message(result):
     cookie_jar = RequestsCookieJar()
     cookie_jar.set("SID", result["SID"])
-    param = {"channel": "app_activity_1"}
+    param = {"channel": "taopiaopiao_banner_1"}
     response = requests.post("https://h5.ele.me/restapi/member/v1/users/%s/supervip/growth/prize" % result["user_id"], cookies=cookie_jar, data=param)
     return response.text.encode("utf8")
 
