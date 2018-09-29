@@ -2,7 +2,7 @@
 import requests
 import re
 import time
-from eleme import get_ele, send, get_message_fruit
+from eleme import get_ele, send, get_message_phone, get_message
 # 默认token
 token = "Z8OEvGM7XuVrWuZPOxHez&LkMd7YLad64"
 item_id = 3361
@@ -23,6 +23,7 @@ def get_verification():
     while "False" in ''.join(phones):
         token = (re.findall(r"(.+?)&", requests.get("http://xapi.xunma.net/Login?uName=limeichao&pWord=limeichao1").text))[0]
         phones = get_phones()
+    print token
     # 获取饿了么号码的验证码
     for phone in phones:
         if phone:
@@ -44,8 +45,7 @@ def get_verification():
             requests.get("http://xapi.xunma.net/releasePhone?token=%s&phoneList=%s-%s;" % (token, phone, item_id))
             result["code"] = code
             result["phone"] = phone
-            if code != "Null":
-                return result
+            return result
 
 
 # 循环三次
@@ -53,7 +53,13 @@ j = 0
 while j < 1:
     j = j + 1
     result_ele = get_verification()
-    print result_ele["phone"]
-    print result_ele["code"]
-    print get_message_fruit(send(result_ele["phone"], result_ele["validate_token"], result_ele["code"]))
+    if result_ele["code"] != "Null":
+        print "手机号：" + result_ele["phone"]
+        result_a = send(result_ele["phone"], result_ele["validate_token"], result_ele["code"])
+        print get_message(result_a)
+        print get_message_phone(result_a)
+        if "新用户首单使用" in get_message_phone(result_a):
+            print "该账号有15元红包"
+        else:
+            print "该账号没有15元红包"
     requests.get("http://xapi.xunma.net/Exit?token=%s" % token)

@@ -7,7 +7,7 @@ var1 = StringVar()
 
 def print_button():
     # 关闭窗口
-    root.destroy()
+    root.quit()
 
 
 # 打开图片手动输入验证码 返回输入的验证码
