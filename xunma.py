@@ -58,8 +58,8 @@ while j < 1:
         result_a = send(result_ele["phone"], result_ele["validate_token"], result_ele["code"])
         print get_message(result_a)
         print get_message_phone(result_a)
-        if "新用户首单使用" in get_message_phone(result_a):
-            print "该账号有15元红包"
+        if "商超首单" in get_message_phone(result_a):
+            print "该账号有商超首单红包"
         else:
-            print "该账号没有15元红包"
+            print "该账号没有商超首单红包"
     requests.get("http://xapi.xunma.net/Exit?token=%s" % token)
