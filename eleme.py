@@ -87,3 +87,12 @@ def get_message_phone(result):
     response = requests.get("https://www.ele.me/restapi/promotion/v3/users/%s/hongbaos?limit=200&order_by=end_date" % result["user_id"], cookies=cookie_jar, headers=headers)
     return response.text.encode("utf8")
 
+
+# 查看奖励金
+def get_bonus(result):
+    cookie_jar = RequestsCookieJar()
+    cookie_jar.set("SID", result["SID"])
+    print "SID" + result["SID"]
+    # param = {"refer_code": "6bd2a4f95466c38293dfbb2034715e1b", "phone": result["phone"]}
+    response = requests.get("https://h5.ele.me/restapi/member/v1/users/%s/supervip/homepage" % result["user_id"], cookies=cookie_jar)
+    return response.text.encode("utf8")
