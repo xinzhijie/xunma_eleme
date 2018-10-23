@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+# 获取验证码
 import requests
 import re
 import time
@@ -8,13 +9,13 @@ item_id = 3361
 
 def get_phones():
     global item_id
-    return requests.get("http://xapi.xunma.net/getPhone?ItemId=%s&token=%s&Count=1&Phone=13017747470" % (item_id, token))\
+    return requests.get("http://xapi.xunma.net/getPhone?ItemId=%s&token=%s&Count=1&Phone=17136398024" % (item_id, token))\
         .text.encode("utf-8").strip().split(";")
 
 
 phones = get_phones()
 while "False" in ''.join(phones):
-    token = (re.findall(r"(.+?)&", requests.get("http://xapi.xunma.net/Login?uName=limeichao&pWord=limeichao1").text))[0]
+    token = (re.findall(r"(.+?)&", requests.get("http://xapi.xunma.net/Login?uName=limeichao&pWord=limeichao3").text))[0]
     phones = get_phones()
 print token
 if phones[0]:

@@ -10,6 +10,7 @@ item_id = 3361
 
 # 获取饿了么号码并发送验证码
 def get_phones():
+    global token
     global item_id
     return requests.get("http://xapi.xunma.net/getPhone?ItemId=%s&token=%s&Count=1" % (item_id, token))\
         .text.encode("utf-8").strip().split(";")
@@ -21,7 +22,10 @@ def get_verification():
     # 判断token是否过期
     phones = get_phones()
     while "False" in ''.join(phones):
-        token = (re.findall(r"(.+?)&", requests.get("http://xapi.xunma.net/Login?uName=limeichao&pWord=limeichao1").text))[0]
+        if "余额不足" in ''.join(phones):
+            return
+        print("token过期")
+        token = (re.findall(r"(.+?)&", requests.get("http://xapi.xunma.net/Login?uName=limeichao&pWord=limeichao3").text))[0]
         phones = get_phones()
     print token
     # 获取饿了么号码的验证码
@@ -50,7 +54,7 @@ def get_verification():
 
 # 循环三次
 j = 0
-while j < 1:
+while j < 3:
     j = j + 1
     result_ele = get_verification()
     if result_ele["code"] != "Null":
@@ -60,6 +64,8 @@ while j < 1:
         print get_message_phone(result_a)
         if "商超首单" in get_message_phone(result_a):
             print "该账号有商超首单红包"
+            break
         else:
             print "该账号没有商超首单红包"
-    requests.get("http://xapi.xunma.net/Exit?token=%s" % token)
+print(token)
+requests.get("http://xapi.xunma.net/Exit?token=%s" % token)
