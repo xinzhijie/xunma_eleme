@@ -66,7 +66,13 @@ while j < 10:
         shangchao = get_message_phone(result_a)
         # 判断奖励金和会员
         jianglijin = get_bonus(result_a)
-        print jianglijin
+        print shangchao
+        if "新用户首单红包" in shangchao:
+            print "该账号有新用户首单红包"
+            print "33333333333333333333333333333333333333333333333333333333"
+            break
+        else:
+            print "该账号没有新用户首单红包"
         if "超级会员不存在或已过期" in jianglijin:
             print "该账号没有会员"
         else:
