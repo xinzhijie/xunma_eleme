@@ -9,13 +9,13 @@ item_id = 3361
 # 15926712857
 def get_phones():
     global item_id
-    return requests.get("http://xapi.xunma.net/getPhone?ItemId=%s&token=%s&Count=1&Phone=15926712857" % (item_id, token))\
+    return requests.get("http://xapi.xunma.net/getPhone?ItemId=%s&token=%s&Count=1&Phone=13251081418" % (item_id, token))\
         .text.encode("utf-8").strip().split(";")
 
 
 phones = get_phones()
 while "False" in ''.join(phones):
-    token = (re.findall(r"(.+?)&", requests.get("http://xapi.xunma.net/Login?uName=limeichao&pWord=limeichao3").text))[0]
+    token = (re.findall(r"(.+?)&", requests.get("http://xapi.xunma.net/Login?uName=limeichao&pWord=limeichao").text))[0]
     phones = get_phones()
 print token
 if phones[0]:

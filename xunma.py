@@ -67,7 +67,7 @@ while j < 10:
         # 判断奖励金和会员
         jianglijin = get_bonus(result_a)
         print shangchao
-        if "新用户首单红包" in shangchao:
+        if "首单红包" in shangchao:
             print "该账号有新用户首单红包"
             print "33333333333333333333333333333333333333333333333333333333"
             break
