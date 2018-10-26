@@ -21,13 +21,14 @@ def get_verification():
     global item_id
     # 判断token是否过期
     phones = get_phones()
-    while "False" in ''.join(phones):
-        if "余额不足" in ''.join(phones):
-            return
+    while "过期" in ''.join(phones):
         print("token过期")
-        token = (re.findall(r"(.+?)&", requests.get("http://xapi.xunma.net/Login?uName=limeichao&pWord=limeichao3").text))[0]
+        token = (re.findall(r"(.+?)&", requests.get("http://xapi.xunma.net/Login?uName=limeichao&pWord=limeichao").text))[0]
         phones = get_phones()
     print token
+    if "余额不足" in ''.join(phones):
+        print("余额不足")
+        return
     # 获取饿了么号码的验证码
     for phone in phones:
         if phone:
@@ -55,6 +56,7 @@ def get_verification():
 # 循环三次
 j = 0
 while j < 10:
+    stat = 0
     j = j + 1
     result_ele = get_verification()
     if result_ele["code"] != "Null":
@@ -67,23 +69,19 @@ while j < 10:
         # 判断奖励金和会员
         jianglijin = get_bonus(result_a)
         print shangchao
-        if "首单红包" in shangchao:
-            print "该账号有新用户首单红包"
-            print "33333333333333333333333333333333333333333333333333333333"
-            break
-        else:
-            print "该账号没有新用户首单红包"
-        if "超级会员不存在或已过期" in jianglijin:
-            print "该账号没有会员"
-        else:
+        if "超级会员不存在或已过期" not in jianglijin:
+            stat = stat + 1
             print "该账号有会员"
             print "11111111111111111111111111111111111111111111111111111111"
-            break
         if "商超首单" in shangchao:
             print "该账号有商超首单红包"
             print "22222222222222222222222222222222222222222222222222222222"
+            stat = stat + 1
+        if "首单红包" in shangchao:
+            stat = stat + 1
+            print "该账号有新用户首单红包"
+            print "33333333333333333333333333333333333333333333333333333333"
+        if stat > 0:
             break
-        else:
-            print "该账号没有商超首单红包"
 print(token)
 requests.get("http://xapi.xunma.net/Exit?token=%s" % token)
