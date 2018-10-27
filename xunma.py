@@ -2,7 +2,7 @@
 import requests
 import re
 import time
-from eleme import get_ele, send, get_message_phone, get_message, get_bonus
+from eleme import get_ele, send, get_message_phone, get_message_fruit, get_bonus
 # 默认token
 token = "Z8OEvGM7XuVrWuZPOxHez&LkMd7YLad64"
 item_id = 3361
@@ -55,15 +55,15 @@ def get_verification():
 
 # 循环三次
 j = 0
-while j < 10:
+while j < 1:
     stat = 0
     j = j + 1
     result_ele = get_verification()
     if result_ele["code"] != "Null":
         print "手机号：" + result_ele["phone"]
         result_a = send(result_ele["phone"], result_ele["validate_token"], result_ele["code"])
-        # 抽奖会员
-        print get_message(result_a)
+        # 抽奖新用户和果蔬红包
+        print get_message_fruit(result_a)
         # 判断商超红包
         shangchao = get_message_phone(result_a)
         # 判断奖励金和会员

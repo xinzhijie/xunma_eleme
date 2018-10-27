@@ -10,7 +10,7 @@ item_id = 3361
 # 15926712857
 def get_phones():
     global item_id
-    return requests.get("http://xapi.xunma.net/getPhone?ItemId=%s&token=%s&Count=1&Phone=13438804634" % (item_id, token))\
+    return requests.get("http://xapi.xunma.net/getPhone?ItemId=%s&token=%s&Count=1&Phone=15931412579" % (item_id, token))\
         .text.encode("utf-8").strip().split(";")
 
 

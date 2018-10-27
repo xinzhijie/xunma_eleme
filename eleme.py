@@ -66,8 +66,7 @@ def get_message(result):
     return response.text.encode("utf8")
 
 
-# 登陆成功拿这SID 抽奖
-# 领取果蔬红包
+# 抽奖新用户和果蔬红包
 def get_message_fruit(result):
     cookie_jar = RequestsCookieJar()
     cookie_jar.set("SID", result["SID"])
