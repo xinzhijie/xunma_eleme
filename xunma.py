@@ -6,7 +6,9 @@ from eleme import get_ele, send, get_message_phone, get_message_fruit, get_bonus
 from jialefu import get_jialefu_ver, get_jialefu_login, get_jialefu_youhui, get_jialefu_password
 # 默认token
 token = "Z8OEvGM7XuVrWuZPOxHez&LkMd7YLad64"
+# 饿了么
 # item_id = 3361
+
 # 家乐福
 item_id = 3950
 
@@ -34,7 +36,10 @@ def get_verification():
     # 获取饿了么号码的验证码
     for phone in phones:
         if phone:
+            # 家乐福
             result = get_jialefu_ver(phone)
+            # 饿了么
+            # result = get_ele(phone)
             code = ''
             # 计数器
             i = 0
@@ -42,6 +47,10 @@ def get_verification():
                 i = i + 1
                 code = requests.get("http://xapi.xunma.net/getMessage?token=%s&itemId=%s&phone=%s" % (token, item_id, phone)).text.encode("utf8")
                 if "验证码" in code:
+                    # 饿了么
+                    # code = re.findall(r"验证码是(.+?)，", code)[0]
+
+                    # 家乐福
                     code = re.findall(r"验证码为(.+?)，", code)[0]
                     break
                 # 计数器为20 停止并放弃号码

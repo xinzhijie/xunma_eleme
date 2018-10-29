@@ -1,11 +1,10 @@
 # -*- coding: UTF-8 -*-
 import requests
-from verification_code import get_code
 import json
-import base64
 from requests.cookies import RequestsCookieJar
 cie = 'DISTRIBUTED_JSESSIONID=DEFD9D7FC4D14DC88E9132EC2E4CC23D'
 equipment = 'android-kw4bz5df1ophmrls'
+
 
 def get_jialefu_ver(phone):
     global cie
@@ -95,10 +94,8 @@ def get_jialefu_youhui(result):
                'X-Requested-With': 'cn.carrefour.app.mobile'}
     cookie_jar = RequestsCookieJar()
     cookie_jar.set("Cookie", cie)
-    print(cie.encode("utf8"))
     response = requests.get("https://www.carrefour.cn/mobile/api/activity/coupon/getActivityCoupon?param=%7B%22type%22%3A154%7D", cookies=cookie_jar, headers=headers)
     return response.text.encode("utf8")
-
 
 
 def get_jialefu_password(result):
