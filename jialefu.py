@@ -4,7 +4,8 @@ from verification_code import get_code
 import json
 import base64
 from requests.cookies import RequestsCookieJar
-cie = 'DISTRIBUTED_JSESSIONID=DEFD9D7FC4D14DC88E9132EC2E4CC21D'
+cie = 'DISTRIBUTED_JSESSIONID=DEFD9D7FC4D14DC88E9132EC2E4CC23D'
+equipment = 'android-kw4bz5df1ophmrls'
 
 def get_jialefu_ver(phone):
     global cie
@@ -18,7 +19,7 @@ def get_jialefu_ver(phone):
                'normalSubsiteId': '58',
                'Accept': 'application/json, text/plain, */*',
                'osVersion': '8.1',
-               'unique': 'android-kw4bz6df1ophmrls',
+               'unique': equipment,
                'subsiteId': '58',
                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
                'os': 'android',
@@ -52,7 +53,7 @@ def get_jialefu_login(ver, phone):
                'normalSubsiteId': '58',
                'Accept': 'application/json, text/plain, */*',
                'osVersion': '8.1',
-               'unique': 'android-kw4bz6df1ophmrls',
+               'unique': equipment,
                'subsiteId': '58',
                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
                'os': 'android',
@@ -68,22 +69,22 @@ def get_jialefu_login(ver, phone):
     # param = {"param": parameter}
     response = requests.post("https://www.carrefour.cn/mobile/api/user/verifyCodeLogin", cookies=cookie_jar,
                              data=parameter, headers=headers)
-    return response.data.encode("utf8")
+    return json.loads(response.text.encode("utf8"))["data"]
 
 
-# 查看奖励金
 def get_jialefu_youhui(result):
     global cie
     headers = {'Host': 'www.carrefour.cn',
                'Connection': 'keep-alive',
                'channel': 'production',
+               'unique': equipment,
                'language': 'zh-CN',
                'User-Agent': 'Mozilla/5.0 (Linux; Android 8.1.0; MI 8 Build/OPM1.171019.026; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/62.0.3202.84 Mobile Safari/537.36',
                'normalSubsiteId': '58',
                'Accept': 'application/json, text/plain, */*',
                'osVersion': '8.1',
-               'userid': result["id"],
-               'userSession': result["userSession"],
+               'userid': (str(result["id"])).encode("utf8"),
+               'userSession': result["userSession"].encode("utf8"),
                'subsiteId': '58',
                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
                'os': 'android',
@@ -94,6 +95,7 @@ def get_jialefu_youhui(result):
                'X-Requested-With': 'cn.carrefour.app.mobile'}
     cookie_jar = RequestsCookieJar()
     cookie_jar.set("Cookie", cie)
+    print(cie.encode("utf8"))
     response = requests.get("https://www.carrefour.cn/mobile/api/activity/coupon/getActivityCoupon?param=%7B%22type%22%3A154%7D", cookies=cookie_jar, headers=headers)
     return response.text.encode("utf8")
 
@@ -102,6 +104,7 @@ def get_jialefu_youhui(result):
 def get_jialefu_password(result):
     global cie
     headers = {'Host': 'www.carrefour.cn',
+               'unique': equipment,
                'Connection': 'keep-alive',
                'channel': 'production',
                'language': 'zh-CN',
@@ -109,8 +112,8 @@ def get_jialefu_password(result):
                'normalSubsiteId': '58',
                'Accept': 'application/json, text/plain, */*',
                'osVersion': '8.1',
-               'userid': result["id"],
-               'userSession': result["userSession"],
+               'userid': (str(result["id"])).encode("utf8"),
+               'userSession': result["userSession"].encode("utf8"),
                'subsiteId': '58',
                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
                'os': 'android',
@@ -126,6 +129,6 @@ def get_jialefu_password(result):
     # param = {"param": parameter}
     response = requests.post("https://www.carrefour.cn/mobile/api/account/setLoginPassword", cookies=cookie_jar,
                              data=parameter, headers=headers)
-    return response.data.userSession.encode("utf8")
+    return response.text.encode("utf8")
 
 
