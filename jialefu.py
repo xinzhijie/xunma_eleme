@@ -1,13 +1,32 @@
 # -*- coding: UTF-8 -*-
 import requests
 import json
+import uuid
 from requests.cookies import RequestsCookieJar
-cie = 'DISTRIBUTED_JSESSIONID=DEFD9D7FC4D14DC88E9132EC2E4CC23D'
-equipment = 'android-kw4bz5df1ophmrls'
+cie = 'DISTRIBUTED_JSESSIONID=DEFD3D7FC4D14DC88E9132EC2E4CC21D'
+equipment = 'android-kw3bz4df1ophmrls'
+
+
+def equip_random():
+    global equipment
+    uid = str(uuid.uuid1())
+    uid = uid.replace("-", "")[15:32]
+    equipment = 'android-%s' % uid
+
+
+def cie_random():
+    global cie
+    uid = str(uuid.uuid1())
+    l_uuid = uid.split('-')
+    uid = ''.join(l_uuid)
+    cie = 'DISTRIBUTED_JSESSIONID=%s' % uid.upper()
 
 
 def get_jialefu_ver(phone):
+    equip_random()
+    cie_random()
     global cie
+    global equipment
     headers = {'Host': 'www.carrefour.cn',
                'Connection': 'keep-alive',
                'Content-Length': '44',
@@ -42,6 +61,7 @@ def get_jialefu_ver(phone):
 
 def get_jialefu_login(ver, phone):
     global cie
+    global equipment
     headers = {'Host': 'www.carrefour.cn',
                'Connection': 'keep-alive',
                'Content-Length': '81',
@@ -73,6 +93,7 @@ def get_jialefu_login(ver, phone):
 
 def get_jialefu_youhui(result):
     global cie
+    global equipment
     headers = {'Host': 'www.carrefour.cn',
                'Connection': 'keep-alive',
                'channel': 'production',
@@ -100,6 +121,7 @@ def get_jialefu_youhui(result):
 
 def get_jialefu_password(result):
     global cie
+    global equipment
     headers = {'Host': 'www.carrefour.cn',
                'unique': equipment,
                'Connection': 'keep-alive',

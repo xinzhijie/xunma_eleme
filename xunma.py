@@ -103,7 +103,7 @@ def get_verification():
 
 
 j = 0
-while j < 1:
+while j < 10:
     stat = 0
     j = j + 1
     result_ele = get_verification()
