@@ -49,7 +49,7 @@ def get_verification():
                 if "验证码" in code:
                     # 饿了么
                     # code = re.findall(r"验证码是(.+?)，", code)[0]
-
+                    # print(code)
                     # 家乐福
                     code = re.findall(r"验证码为(.+?)，", code)[0]
                     break
@@ -59,6 +59,7 @@ def get_verification():
                 time.sleep(2)
             # 释放手机号
             requests.get("http://xapi.xunma.net/releasePhone?token=%s&phoneList=%s-%s;" % (token, phone, item_id))
+            # print result
             result["code"] = code
             result["phone"] = phone
             return result
@@ -101,17 +102,20 @@ def get_verification():
 # print(token)
 # requests.get("http://xapi.xunma.net/Exit?token=%s" % token)
 
-
-j = 0
-while j < 10:
-    stat = 0
-    j = j + 1
-    result_ele = get_verification()
-    if result_ele["code"] != "Null":
-        print "手机号：" + result_ele["phone"]
-        result_a = get_jialefu_login(result_ele["code"], result_ele["phone"])
-        result1 = get_jialefu_youhui(result_a)
-        print result1
-        print get_jialefu_password(result_a)
-print(token)
-requests.get("http://xapi.xunma.net/Exit?token=%s" % token)
+try:
+    j = 0
+    while j < 10:
+        stat = 0
+        j = j + 1
+        result_ele = get_verification()
+        if result_ele["code"] != "Null":
+            print "手机号：" + result_ele["phone"]
+            result_a = get_jialefu_login(result_ele["code"], result_ele["phone"])
+            result1 = get_jialefu_youhui(result_a)
+            print result1
+            print get_jialefu_password(result_a)
+except Exception as e:
+    print('except:', e)
+finally:
+    # print(token)
+    requests.get("http://xapi.xunma.net/Exit?token=%s" % token)

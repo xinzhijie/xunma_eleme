@@ -56,7 +56,7 @@ def get_jialefu_ver(phone):
     result = {"phone": phone}
     if "SUCCESS" in response.text.encode("utf8"):
         return result
-    return ""
+    return result
 
 
 def get_jialefu_login(ver, phone):
