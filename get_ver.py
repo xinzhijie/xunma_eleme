@@ -4,13 +4,15 @@ import requests
 import re
 import time
 token = "Z8OEvGM7XuVrWuZPOxHez&LkMd7YLad64"
-item_id = 3361
+# 家乐福
+item_id = 3950
+# 饿了么
+# item_id = 3361
 
 
-# 15926712857
 def get_phones():
     global item_id
-    return requests.get("http://xapi.xunma.net/getPhone?ItemId=%s&token=%s&Count=1&Phone=17150815452" % (item_id, token))\
+    return requests.get("http://xapi.xunma.net/getPhone?ItemId=%s&token=%s&Count=1&Phone=13116844025" % (item_id, token))\
         .text.encode("utf-8").strip().split(";")
 
 
@@ -30,7 +32,6 @@ if "没有" not in ''.join(phones):
                 "http://xapi.xunma.net/getMessage?token=%s&itemId=%s&phone=%s" % (token, item_id, phones[0])).text.encode(
                 "utf8")
             if "验证码" in code:
-                code = re.findall(r"验证码是(.+?)，", code)[0]
                 print code
                 break
             # 计数器为20 停止并放弃号码
