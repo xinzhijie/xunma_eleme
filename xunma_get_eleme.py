@@ -26,7 +26,7 @@ def get_verification():
         print("token过期")
         token = (re.findall(r"(.+?)&", requests.get("http://xapi.xunma.net/Login?uName=limeichao&pWord=limeichao").text))[0]
         phones = get_phones()
-    print token
+        print token
     if "余额不足" in ''.join(phones):
         print("余额不足")
         return
@@ -73,7 +73,7 @@ while j < 5:
         shangchao = get_message_phone(result_a)
         # 判断奖励金和会员
         jianglijin = get_bonus(result_a)
-        print jianglijin
+        print shangchao
         # if "超级会员不存在或已过期" not in jianglijin:
         #     stat = stat + 1
         #     print "该账号有会员"

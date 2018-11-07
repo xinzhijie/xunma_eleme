@@ -51,7 +51,7 @@ def send(phone, validate_token, phone_code):
     result = json.loads(response.text.encode("utf8"))
     result["SID"] = temp
     result["phone"] = phone
-    print "SID:" + result["SID"]
+    # print "SID:" + result["SID"]
     # 返回SID 返回user_id
     return result
 
@@ -70,7 +70,7 @@ def get_message(result):
 def get_message_fruit(result):
     cookie_jar = RequestsCookieJar()
     cookie_jar.set("SID", result["SID"])
-    print "SID" + result["SID"]
+    # print "SID" + result["SID"]
     param = {"refer_code": "6bd2a4f95466c38293dfbb2034715e1b", "phone": result["phone"]}
     response = requests.post("https://h5.ele.me/restapi/marketing/promotion/refer/%s" % result["user_id"], cookies=cookie_jar, data=param)
     return response.text.encode("utf8")
@@ -81,7 +81,7 @@ def get_message_fruit(result):
 def get_message_phone(result):
     cookie_jar = RequestsCookieJar()
     cookie_jar.set("SID", result["SID"])
-    print "USER_ID:" + str(result["user_id"])
+    # print "USER_ID:" + str(result["user_id"])
     headers = {'content-type': 'application/json', "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36Mozilla/5.0"}
     response = requests.get("https://www.ele.me/restapi/promotion/v3/users/%s/hongbaos?limit=200&order_by=end_date" % result["user_id"], cookies=cookie_jar, headers=headers)
     return response.text.encode("utf8")
@@ -91,7 +91,7 @@ def get_message_phone(result):
 def get_bonus(result):
     cookie_jar = RequestsCookieJar()
     cookie_jar.set("SID", result["SID"])
-    print "SID" + result["SID"]
+    # print "SID" + result["SID"]
     # param = {"refer_code": "6bd2a4f95466c38293dfbb2034715e1b", "phone": result["phone"]}
     response = requests.get("https://h5.ele.me/restapi/member/v1/users/%s/supervip/homepage" % result["user_id"], cookies=cookie_jar)
     return response.text.encode("utf8")
