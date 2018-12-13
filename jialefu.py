@@ -151,4 +151,36 @@ def get_jialefu_password(result):
                              data=parameter, headers=headers)
     return response.text.encode("utf8")
 
+def get_jialefu_list(result):
+    global cie
+    global equipment
+    headers = {'Host': 'www.carrefour.cn',
+               'unique': equipment,
+               'Connection': 'keep-alive',
+               'channel': 'production',
+               'language': 'zh-CN',
+               'User-Agent': 'Mozilla/5.0 (Linux; Android 8.1.0; MI 8 Build/OPM1.171019.026; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/62.0.3202.84 Mobile Safari/537.36',
+               'normalSubsiteId': '58',
+               'Accept': 'application/json, text/plain, */*',
+               'osVersion': '8.1',
+               'userid': (str(result["id"])).encode("utf8"),
+               'userSession': result["userSession"].encode("utf8"),
+               'subsiteId': '58',
+               'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+               'os': 'android',
+               'appVersion': '2.8.0',
+               'Accept-Encoding': 'gzip, deflate',
+               'Accept-Language': 'zh-CN,en-US;q=0.9',
+               'Cookie': cie,
+               'X-Requested-With': 'cn.carrefour.app.mobile'}
+
+    cookie_jar = RequestsCookieJar()
+    cookie_jar.set("Cookie", cie)
+    parameter = "param=%7B%22status%22%3A%222%22%2C%22page%22%3A1%2C%22pageCount%22%3A12%7D"
+    # param = {"param": parameter}
+    response = requests.post("https://www.carrefour.cn/mobile/api/coupon/list", cookies=cookie_jar,
+                             data=parameter, headers=headers)
+    print response
+    return response.text.encode("utf8")
+
 

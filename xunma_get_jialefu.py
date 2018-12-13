@@ -3,7 +3,7 @@ import requests
 import re
 import time
 from eleme import get_ele, send, get_message_phone, get_message_fruit, get_bonus
-from jialefu import get_jialefu_ver, get_jialefu_login, get_jialefu_youhui, get_jialefu_password
+from jialefu import get_jialefu_ver, get_jialefu_login, get_jialefu_youhui, get_jialefu_password, get_jialefu_list
 # 默认token
 token = "Z8OEvGM7XuVrWuZPOxHez&LkMd7YLad64"
 # 家乐福
@@ -59,9 +59,17 @@ def get_verification():
             return result
 
 
+# import time
+# date = 10
+# while date > 0:
+#     t = time.time()
+#     date = 1543881630 - int(t)
+#     if date < 0:
+#         date = 0
+#     time.sleep(date/2)
 try:
     j = 0
-    while j < 10:
+    while j < 5:
         stat = 0
         j = j + 1
         result_ele = get_verification()
@@ -71,6 +79,11 @@ try:
             result1 = get_jialefu_youhui(result_a)
             print result1
             print get_jialefu_password(result_a)
+            result2 = get_jialefu_list(result_a)
+            print result2
+            if result2.find("199") != -1:
+                print("1111111111111111111111111111111111111111111")
+                break
 except Exception as e:
     print('except:', e)
 finally:
