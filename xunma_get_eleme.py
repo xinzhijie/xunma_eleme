@@ -2,7 +2,7 @@
 import requests
 import re
 import time
-from eleme import get_ele, send, get_message_phone, get_message_fruit, get_bonus
+from eleme import get_ele, send, get_message_phone, get_message_fruit, get_bonus, get_fruit
 # 默认token
 token = "Z8OEvGM7XuVrWuZPOxHez&LkMd7YLad64"
 # 饿了么
@@ -69,11 +69,17 @@ while j < 5:
         result_a = send(result_ele["phone"], result_ele["validate_token"], result_ele["code"])
         # 抽奖新用户和果蔬红包
         print get_message_fruit(result_a)
+        fruitBa = get_fruit(result_a)
+        print fruitBa
         # 判断商超红包
         shangchao = get_message_phone(result_a)
         # 判断奖励金和会员
         jianglijin = get_bonus(result_a)
         print shangchao
+        if "10" in fruitBa:
+            stat = stat + 1
+            print "该账号有果蔬红包"
+            print "0000000000000000000000000000000000000000000000000000000"
         if "超级会员不存在或已过期" not in jianglijin:
             stat = stat + 1
             print "该账号有会员"

@@ -95,3 +95,16 @@ def get_bonus(result):
     # param = {"refer_code": "6bd2a4f95466c38293dfbb2034715e1b", "phone": result["phone"]}
     response = requests.get("https://h5.ele.me/restapi/member/v1/users/%s/supervip/homepage" % result["user_id"], cookies=cookie_jar)
     return response.text.encode("utf8")
+
+
+# https://newretail.ele.me/newretail/act/newguestwelfare?userId=4874730114&lng=116.25488575547934&lat=40.211242865771055&city_id=3
+# 领取果蔬新人礼
+def get_fruit(result):
+    cookie_jar = RequestsCookieJar()
+    cookie_jar.set("SID", result["SID"])
+    # print "SID" + result["SID"]
+    # param = {"refer_code": "6bd2a4f95466c38293dfbb2034715e1b", "phone": result["phone"]}
+    response = requests.get("https://newretail.ele.me/newretail/act/newguestwelfare?userId=%s"
+                            "&lng=116.25488575547934&lat=40.211242865771055&city_id=3" % result["user_id"], cookies=cookie_jar)
+    return response.text.encode("utf8")
+
