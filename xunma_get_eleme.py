@@ -2,6 +2,7 @@
 import requests
 import re
 import time
+import json
 from eleme import get_ele, send, get_message_phone, get_message_fruit, get_bonus, get_fruit
 # 默认token
 token = "Z8OEvGM7XuVrWuZPOxHez&LkMd7YLad64"
@@ -60,7 +61,7 @@ def get_verification():
 
 # 循环三次
 j = 0
-while j < 5:
+while j < 1:
     stat = 0
     j = j + 1
     result_ele = get_verification()
@@ -70,13 +71,14 @@ while j < 5:
         # 抽奖新用户和果蔬红包
         print get_message_fruit(result_a)
         fruitBa = get_fruit(result_a)
-        print fruitBa
+        temp2 = json.loads(fruitBa)['result']['welfare_redpacket']['new_guest_redpacket'][0]
+        print temp2
         # 判断商超红包
         shangchao = get_message_phone(result_a)
         # 判断奖励金和会员
         jianglijin = get_bonus(result_a)
         print shangchao
-        if "10" in fruitBa:
+        if temp2['end_date'] == '':
             stat = stat + 1
             print "该账号有果蔬红包"
             print "0000000000000000000000000000000000000000000000000000000"
