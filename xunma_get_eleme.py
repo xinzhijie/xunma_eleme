@@ -65,7 +65,7 @@ def get_verification():
 try:
     # 循环三次
     j = 0
-    while j < 4:
+    while j < 1:
         stat = 0
         j = j + 1
         result_ele = get_verification()
