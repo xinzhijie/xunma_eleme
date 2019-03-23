@@ -116,7 +116,7 @@ def get_jialefu_youhui(result):
     cookie_jar = RequestsCookieJar()
     # https://www.carrefour.cn/mobile/api/activity/coupon/getActivityCoupon?param=   %7B%22type%22%3A154%7D
     cookie_jar.set("Cookie", cie)
-    response = requests.get("https://www.carrefour.cn/mobile/api/activity/coupon/getActivityCoupon?param=%7B%22type%22%3A159%7D", cookies=cookie_jar, headers=headers)
+    response = requests.get("https://www.carrefour.cn/mobile/api/activity/coupon/getActivityCoupon?param=%7B%22type%22%3A262%7D", cookies=cookie_jar, headers=headers)
     return response.text.encode("utf8")
 
 

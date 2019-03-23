@@ -58,7 +58,7 @@ def dongjianzhe(phone):
 
 try:
     j = 0
-    while j < 10:
+    while j < 2:
         stat = 0
         j = j + 1
         result_ele = get_verification()
