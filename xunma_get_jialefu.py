@@ -77,6 +77,8 @@ try:
             print "手机号：" + result_ele["phone"]
             result_a = get_jialefu_login(result_ele["code"], result_ele["phone"])
             result1 = get_jialefu_youhui(result_a)
+            while result1.find("已领") == -1:
+                result1 = get_jialefu_youhui(result_a)
             print result1
             print get_jialefu_password(result_a)
             result2 = get_jialefu_list(result_a)
