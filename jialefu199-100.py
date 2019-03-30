@@ -1,6 +1,9 @@
 # -*- coding: UTF-8 -*-
-from requests.cookies import RequestsCookieJar
+import thread
+import time
+
 import requests
+from requests.cookies import RequestsCookieJar
 
 cieList = ['DISTRIBUTED_JSESSIONID=0359B14152EC11E9A8B908D40C5DDD82', 'DISTRIBUTED_JSESSIONID=1689029252EF11E9AF3008D40C5DDD82']
 equipmentList = ['android-9a47c08d40c5ddd82', 'android-99b2f08d40c5ddd82']
@@ -33,8 +36,14 @@ def get_jialefu_youhui(cie, equipment, user_id, user_session, phone):
     cookie_jar = RequestsCookieJar()
     cookie_jar.set("Cookie", cie)
     response = requests.get("https://www.carrefour.cn/mobile/api/activity/coupon/getActivityCoupon?param=%7B%22type%22%3A262%7D", cookies=cookie_jar, headers=headers)
+    print response.text.encode("utf8") + "\n"
     return response.text.encode("utf8")
 
 
-for index in range(len(phoneList)):
-    print get_jialefu_youhui(cieList[index], equipmentList[index], useridList[index], userSessionList[index], phoneList[index])
+# for index in range(len(phoneList)):
+#     print get_jialefu_youhui(cieList[index], equipmentList[index], useridList[index], userSessionList[index], phoneList[index])
+
+print 5
+thread.start_new_thread(get_jialefu_youhui, (cieList[0], equipmentList[0], useridList[0], userSessionList[0], phoneList[0],))
+thread.start_new_thread(get_jialefu_youhui, (cieList[1], equipmentList[1], useridList[1], userSessionList[1], phoneList[1],))
+time.sleep(20)
