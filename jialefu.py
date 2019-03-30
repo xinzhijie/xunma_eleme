@@ -94,6 +94,10 @@ def get_jialefu_login(ver, phone):
 def get_jialefu_youhui(result):
     global cie
     global equipment
+    print "cie: " + cie
+    print "equipment: " + equipment
+    print "user_id: " + (str(result["id"])).encode("utf8")
+    print "user_session: " + result["userSession"].encode("utf8")
     headers = {'Host': 'www.carrefour.cn',
                'Connection': 'keep-alive',
                'channel': 'production',
